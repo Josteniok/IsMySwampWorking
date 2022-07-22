@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+  <html>
+      <head>
+          <style>
+              .grid-container {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  grid-template-rows: 1fr 1fr;
+                  background-color: #2196F3;
+                  justify-content: center;
+              }
+              .grid-item {
+                  background-color: rgba(255, 255, 255, 0.8);
+                  border: 1px solid rgba(0, 0, 0, 0.8);
+                  padding: 10px;
+                  height: 50vh;
+                  font-family: 'Open Sans';
+                  font-weight: 700;
+                  font-size: 10vw;
+                  text-align: center;
+              }
+              table {
+                  border: 1px solid black;
+                  width: 100%;
+              }
+              th, td {
+                  font-size: 1.8vw;
+                  text-align: center;
+              }
+          </style>
+      </head>
+      <body>
+          <div class = "grid-container">
+              <div class = "grid-item" id = "indoor-column">
+                  <p style = "font-size:3vw">Indoor AQI</p>
+                  <p id = "indooraqi"></p>
+              </div>
+              <div class = "grid-item" id = "outdoor-column">
+                  <p style = "font-size:3vw">Outdoor AQI</p>
+                  <p id = "outdooraqi"></p>
+              </div>
+              <div class = "grid-item">
+                <p style = "font-size:3vw">Indoor Details</p>
+                <table>
+                    <tr>
+                        <th>Particle Masses</th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>pm1.0</th>
+                        <th>pm2.5</th>
+                        <th>pm10.0</th>
+                    </tr>
+                    <tr>
+                        <td id = "indoorpm1.0"></td>
+                        <td id = "indoorpm2.5"></td>
+                        <td id = "indoorpm10.0"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Particle Counts</th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>0.3um</th>
+                        <th>0.5um</th>
+                        <th>1.0um</th>
+                        <th>2.5um</th>
+                        <th>5.0um</th>
+                        <th>10.0um</th>
+                    </tr>
+                    <tr>
+                        <td id = "indoor0.3um"></td>
+                        <td id = "indoor0.5um"></td>
+                        <td id = "indoor1.0um"></td>
+                        <td id = "indoor2.5um"></td>
+                        <td id = "indoor5.0um"></td>
+                        <td id = "indoor10.0um"></td>
+                    </tr>
+                </table>
+                <p style = "font-size:2vw" id = "indoordatatime"></pr>
+              </div>
+              <div class = "grid-item">
+                <p style = "font-size:3vw">Outdoor Details</p>
+                <table>
+                    <tr>
+                        <th>Particle Masses</th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>pm1.0</th>
+                        <th>pm2.5</th>
+                        <th>pm10.0</th>
+                    </tr>
+                    <tr>
+                        <td id = "outdoorpm1.0"></td>
+                        <td id = "outdoorpm2.5"></td>
+                        <td id = "outdoorpm10.0"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Particle Counts</th>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>0.3um</th>
+                        <th>0.5um</th>
+                        <th>1.0um</th>
+                        <th>2.5um</th>
+                        <th>5.0um</th>
+                        <th>10.0um</th>
+                    </tr>
+                    <tr>
+                        <td id = "outdoor0.3um"></td>
+                        <td id = "outdoor0.5um"></td>
+                        <td id = "outdoor1.0um"></td>
+                        <td id = "outdoor2.5um"></td>
+                        <td id = "outdoor5.0um"></td>
+                        <td id = "outdoor10.0um"></td>
+                    </tr>
+                </table>
+                <p style = "font-size:2vw" id = "outdoordatatime"></pr>
+              </div>
+          </div>
+          <script src="/isswampgood/isswampgood.js">
+          </script>
+        </body>
+    </html>
