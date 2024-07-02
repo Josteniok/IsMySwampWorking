@@ -1,21 +1,9 @@
 'use strict';
 
-const AmbientWeatherApi = require('ambient-weather-api');
-
 const ambientWeatherApiKey = "f6fdbc24eeb84a93a4ece8cc5477b9829cbf7eb2dd754611b4e82ee038799860";
 const ambientWeatherAppKey = "a814385732c14e75b26d3d51c93caf9859a7ae77ebd345738e4e96af52de4076";
 
-const api = new AmbientWeatherApi({
-    apiKey: ambientWeatherApiKey,
-    applicationKey: ambientWeatherAppKey
-});
-
-async function getInfo() {
-    const sensors = await api.userDevices();
-
-    document.getElementById(indoortemp).innerHTML = sensors.lastData.tempinf;
-    document.getElementById(bestswamptemp).innerHTML = sensors.lastData.humidity;
-}
+const macaddress = "98:CD:AC:22:47:F6";
 
 const purpleAirApiReadKey = "ADB7BE2F-17CD-11EC-BAD6-42010A800017";
 const outdoorsensorindex = "121389";
@@ -37,46 +25,22 @@ const Fields = {
     um10: '10.0_um_count'
 };
 // Initial pull
-//getAqi(sensorgroupid);
+getTempInfo();
 // Repeat pulls
-//let indoorAQI = setInterval(getAqi, 120000, sensorgroupid);
+let tempInfo = setInterval(getTempInfo, 120000);
 
-// Initial pull
-getInfo();
-let tempCalculate = setInterval(getInfo, 120000);
-
-function getAqi(groupid) {
+function getTempInfo() {
     let customHeader = new Headers();
     customHeader.append('X-API-Key', purpleAirApiReadKey);
     let initObject = {
         method: 'GET', headers: customHeader,
     };
 
-    // Sensor fields
-    const sensorfields = Fields.pm1 
-        + ',' + Fields.pm25 
-        + ',' + Fields.pm10 
-        + ',' + Fields.pm25cf 
-        + ',' + Fields.humidity
-        + ',' + Fields.lastseen
-        + ',' + Fields.um03
-        + ',' + Fields.um05
-        + ',' + Fields.um1
-        + ',' + Fields.um25
-        + ',' + Fields.um5
-        + ',' + Fields.um10;
-
-    fetch("https://api.purpleair.com/v1/groups/"+groupid+"/members?fields="+sensorfields, initObject)
+    fetch("https://rt.ambientweather.net/v1/devices?applicationKey="+ambientWeatherAppKey+"&apiKey="+ambientWeatherApiKey)
     .then(response => response.json())
     .then(function (sensorData) {
-        let sensorDataFields = sensorData.fields;
-        sensorData.data.forEach((sensor) => {
-            if (sensor[0] == indoorsensorindex) {
-                injectSensorData("indoor", sensor, sensorDataFields);
-            } else if (sensor[0] == outdoorsensorindex) {
-                injectSensorData("outdoor", sensor, sensorDataFields);
-            }
-        })
+        document.getElementById(indoortemp).innerHTML = sensorData.lastData.tempinf;
+        document.getElementById(bestswamptemp).innerHTML = sensorData.lastData.humidity;
     })
     .catch(function (err) {
         console.log("ERROR: ", err);
@@ -125,10 +89,6 @@ function injectSensorData(location, sensorData, sensorDataFields) {
     document.getElementById(um25id).innerHTML = String(um25data);
     document.getElementById(um5id).innerHTML = String(um5data);
     document.getElementById(um10id).innerHTML = String(um10data);
-}
-
-function correctPM25(pm25cf, humidity) {
-    return ((0.52 * pm25cf) - (0.085 * humidity) + 5.71);
 }
 
 function formattedTime(unixtime) {
