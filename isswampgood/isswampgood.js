@@ -113,7 +113,7 @@ function getWetBulb(drybulb, relhumidity) {
         - Math.atan(relhumidity - 1.676331)
         + Math.atan(drybulb + relhumidity)
         - 4.686035;
-    return celsiusToFahrenheit(celsiuswetbulb);
+    return Math.round(celsiusToFahrenheit(celsiuswetbulb));
 }
 
 function calcAQI(pm25) {
@@ -184,4 +184,8 @@ function getBGColorForAQI(aqi) {
         default:
             return 'green';
     }
+}
+
+function getBGColorForTemp(temp) {
+
 }
