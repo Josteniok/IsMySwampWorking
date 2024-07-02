@@ -13,11 +13,11 @@ function getTempInfo() {
     fetch("https://rt.ambientweather.net/v1/devices?applicationKey="+ambientWeatherAppKey+"&apiKey="+ambientWeatherApiKey)
     .then(response => response.json())
     .then(function (sensorData) {
-        document.getElementById("indoortemp").innerHTML = Math.round(sensorData[0].lastData.tempinf);
+        document.getElementById("indoortemp").innerHTML = Math.round(sensorData[0].lastData.tempinf) + '&deg;F';
         let drybulb = fahrenheitToCelsius(sensorData[0].lastData.tempf);
         let relhumidity = sensorData[0].lastData.humidity;
         let wetbulb = getWetBulb(drybulb, relhumidity);
-        document.getElementById("wetbulbtemp").innerHTML = Math.round(wetbulb);
+        document.getElementById("wetbulbtemp").innerHTML = Math.round(wetbulb) + '&deg;F';
         let indoortemp = sensorData[0].lastData.tempinf;
         let efficiency = (sensorData[0].lastData.tempf - indoortemp) / (sensorData[0].lastData.tempf - wetbulb);
         document.getElementById("coolerefficiency").innerHTML = Math.round(efficiency * 100) + '%';
