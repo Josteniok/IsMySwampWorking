@@ -30,16 +30,10 @@ getTempInfo();
 let tempInfo = setInterval(getTempInfo, 120000);
 
 function getTempInfo() {
-    let customHeader = new Headers();
-    customHeader.append('X-API-Key', purpleAirApiReadKey);
-    let initObject = {
-        method: 'GET', headers: customHeader,
-    };
-
     fetch("https://rt.ambientweather.net/v1/devices?applicationKey="+ambientWeatherAppKey+"&apiKey="+ambientWeatherApiKey)
     .then(response => response.json())
     .then(function (sensorData) {
-        document.getElementById("indoortemp").innerHTML = sensorData[0].lastData.tempinf;
+        document.getElementById("indoortemp").innerHTML = Math.round(sensorData[0].lastData.tempinf);
         let drybulb = fahrenheitToCelsius(sensorData[0].lastData.tempf);
         let relhumidity = sensorData[0].lastData.humidity;
         document.getElementById("bestswamptemp").innerHTML = getWetBulb(drybulb, relhumidity) + 5;
@@ -47,50 +41,6 @@ function getTempInfo() {
     .catch(function (err) {
         console.log("ERROR: ", err);
     });
-}
-
-function injectSensorData(location, sensorData, sensorDataFields) {
-    const pm1data = sensorData[sensorDataFields.indexOf(Fields.pm1)];
-    const pm25data = sensorData[sensorDataFields.indexOf(Fields.pm25)];
-    const pm10data = sensorData[sensorDataFields.indexOf(Fields.pm10)];
-    const pm25_cf_1data = sensorData[sensorDataFields.indexOf(Fields.pm25cf)];
-    const humiditydata = sensorData[sensorDataFields.indexOf(Fields.humidity)];
-    const lastseendata = sensorData[sensorDataFields.indexOf(Fields.lastseen)];
-    const um03data = sensorData[sensorDataFields.indexOf(Fields.um03)];
-    const um05data = sensorData[sensorDataFields.indexOf(Fields.um05)];
-    const um1data = sensorData[sensorDataFields.indexOf(Fields.um1)];
-    const um25data = sensorData[sensorDataFields.indexOf(Fields.um25)];
-    const um5data = sensorData[sensorDataFields.indexOf(Fields.um5)];
-    const um10data = sensorData[sensorDataFields.indexOf(Fields.um10)];
-
-    // DOM locations
-    const docid = location + "aqi";
-    const gridid = location + "-column";
-    const pm1id = location + "pm1.0";
-    const pm25id = location + "pm2.5";
-    const pm10id = location + "pm10.0";
-    const datatimeid = location + "datatime";
-    const um03id = location + "0.3um";
-    const um05id = location + "0.5um";
-    const um1id = location + "1.0um";
-    const um25id = location + "2.5um";
-    const um5id = location + "5.0um";
-    const um10id = location + "10.0um";
-
-    const correctedpm25 = correctPM25(pm25_cf_1data, humiditydata);
-    const aqi = calcAQI(correctedpm25);
-    document.getElementById(docid).innerHTML = String(aqi.toFixed(0));
-    document.getElementById(gridid).style.backgroundColor = getBGColorForAQI(aqi);
-    document.getElementById(pm1id).innerHTML = String(pm1data);
-    document.getElementById(pm25id).innerHTML = String(pm25data);
-    document.getElementById(pm10id).innerHTML = String(pm10data);
-    document.getElementById(datatimeid).innerHTML = formattedTime(lastseendata);
-    document.getElementById(um03id).innerHTML = String(um03data);
-    document.getElementById(um05id).innerHTML = String(um05data);
-    document.getElementById(um1id).innerHTML = String(um1data);
-    document.getElementById(um25id).innerHTML = String(um25data);
-    document.getElementById(um5id).innerHTML = String(um5data);
-    document.getElementById(um10id).innerHTML = String(um10data);
 }
 
 function formattedTime(unixtime) {
