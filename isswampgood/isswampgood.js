@@ -1,5 +1,22 @@
 'use strict';
 
+const AmbientWeatherApi = require('ambient-weather-api');
+
+const ambientWeatherApiKey = "f6fdbc24eeb84a93a4ece8cc5477b9829cbf7eb2dd754611b4e82ee038799860";
+const ambientWeatherAppKey = "a814385732c14e75b26d3d51c93caf9859a7ae77ebd345738e4e96af52de4076";
+
+const api = new AmbientWeatherApi({
+    apiKey: ambientWeatherApiKey,
+    applicationKey: ambientWeatherAppKey
+});
+
+async function getInfo() {
+    const sensors = await api.userDevices();
+
+    document.getElementById(indoortemp).innerHTML = sensors.lastData.tempinf;
+    document.getElementById(bestswamptemp).innerHTML = sensors.lastData.humidity;
+}
+
 const purpleAirApiReadKey = "ADB7BE2F-17CD-11EC-BAD6-42010A800017";
 const outdoorsensorindex = "121389";
 const indoorsensorindex = "125241";
@@ -20,9 +37,13 @@ const Fields = {
     um10: '10.0_um_count'
 };
 // Initial pull
-getAqi(sensorgroupid);
+//getAqi(sensorgroupid);
 // Repeat pulls
-let indoorAQI = setInterval(getAqi, 120000, sensorgroupid);
+//let indoorAQI = setInterval(getAqi, 120000, sensorgroupid);
+
+// Initial pull
+getInfo();
+let tempCalculate = setInterval(getInfo, 120000);
 
 function getAqi(groupid) {
     let customHeader = new Headers();
