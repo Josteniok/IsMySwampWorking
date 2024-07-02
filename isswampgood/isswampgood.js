@@ -36,7 +36,7 @@ function getTempInfo() {
         document.getElementById("indoortemp").innerHTML = Math.round(sensorData[0].lastData.tempinf);
         let drybulb = fahrenheitToCelsius(sensorData[0].lastData.tempf);
         let relhumidity = sensorData[0].lastData.humidity;
-        document.getElementById("bestswamptemp").innerHTML = getWetBulb(drybulb, relhumidity) + 5;
+        document.getElementById("bestswamptemp").innerHTML = getWetBulb(95, 35) + 5;
     })
     .catch(function (err) {
         console.log("ERROR: ", err);
