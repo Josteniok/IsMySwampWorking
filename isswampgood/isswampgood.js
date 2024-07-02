@@ -5,7 +5,7 @@ const ambientWeatherAppKey = "a814385732c14e75b26d3d51c93caf9859a7ae77ebd345738e
 
 // Initial pull
 getTempInfo();
-testTempFunction();
+//testTempFunction();
 // Repeat pulls
 let tempInfo = setInterval(getTempInfo, 120000);
 
