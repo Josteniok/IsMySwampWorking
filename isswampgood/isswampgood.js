@@ -19,7 +19,7 @@ function getTempInfo() {
         let wetbulb = getWetBulb(drybulb, relhumidity);
         let indoortemp = sensorData[0].lastData.tempinf;
         let efficiency = (sensorData[0].lastData.tempf - indoortemp) / (sensorData[0].lastData.tempf - wetbulb);
-        document.getElementById("bestswamptemp").innerHTML = Math.round(efficiency * 100);
+        document.getElementById("bestswamptemp").innerHTML = Math.round(efficiency * 100) + '%';
     })
     .catch(function (err) {
         console.log("ERROR: ", err);
