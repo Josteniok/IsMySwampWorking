@@ -26,6 +26,7 @@ const Fields = {
 };
 // Initial pull
 getTempInfo();
+testTempFunction();
 // Repeat pulls
 let tempInfo = setInterval(getTempInfo, 120000);
 
@@ -34,14 +35,22 @@ function getTempInfo() {
     .then(response => response.json())
     .then(function (sensorData) {
         document.getElementById("indoortemp").innerHTML = Math.round(sensorData[0].lastData.tempinf);
-        //let drybulb = fahrenheitToCelsius(sensorData[0].lastData.tempf);
-        let drybulb = fahrenheitToCelsius(95);
+        let drybulb = fahrenheitToCelsius(sensorData[0].lastData.tempf);
         let relhumidity = sensorData[0].lastData.humidity;
-        document.getElementById("bestswamptemp").innerHTML = getWetBulb(drybulb, 35) + 5;
+        document.getElementById("bestswamptemp").innerHTML = getWetBulb(drybulb, relhumidity) + 5;
     })
     .catch(function (err) {
         console.log("ERROR: ", err);
     });
+}
+
+function testTempFunction() {
+    for (var relhum = 5; relhum < 85; relhum += 5) {
+        for (var temp = 75; temp < 130; temp += 5) {
+            let drybulb = fahrenheitToCelsius(temp);
+            console.log(temp + ', ' + relhum + ', ' + getWetBulb(drybulb, relhum));
+        }
+    }
 }
 
 function formattedTime(unixtime) {
