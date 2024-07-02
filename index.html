@@ -31,15 +31,19 @@
       </head>
       <body>
           <div class = "grid-container">
-              <div class = "grid-item" id = "indoor-column">
+              <div class = "grid-item">
                   <p style = "font-size:3vw">Current Indoor Temp</p>
                   <p id = "indoortemp"></p>
               </div>
-              <div class = "grid-item" id = "outdoor-column">
-                  <p style = "font-size:3vw">Current Cooler Efficiency</p>
-                  <p id = "coolerefficiency"></p>
-                  <p style = "font-size:3vw">Current Wet Bulb Temperature</p>
-                  <p id = "wetbulbtemp"></p>
+              <div class = "grid-container">
+                <div class = "grid-item">
+                    <p style = "font-size:3vw">Current Cooler Efficiency</p>
+                    <p id = "coolerefficiency"></p>
+                </div>
+                <div class = "grid-item">
+                    <p style = "font-size:3vw">Current Wet Bulb Temperature</p>
+                    <p id = "wetbulbtemp"></p>
+                </div>
               </div>
           </div>
           <script src="/isswampgood/isswampgood.js">
