@@ -39,8 +39,8 @@ function getTempInfo() {
     fetch("https://rt.ambientweather.net/v1/devices?applicationKey="+ambientWeatherAppKey+"&apiKey="+ambientWeatherApiKey)
     .then(response => response.json())
     .then(function (sensorData) {
-        document.getElementById(indoortemp).innerHTML = sensorData[0].lastData.tempinf;
-        document.getElementById(bestswamptemp).innerHTML = sensorData[0].lastData.humidity;
+        document.getElementById("indoortemp").innerHTML = sensorData[0].lastData.tempinf;
+        document.getElementById("bestswamptemp").innerHTML = sensorData[0].lastData.humidity;
     })
     .catch(function (err) {
         console.log("ERROR: ", err);
