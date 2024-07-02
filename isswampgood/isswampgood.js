@@ -40,7 +40,7 @@ function getTempInfo() {
     .then(response => response.json())
     .then(function (sensorData) {
         document.getElementById("indoortemp").innerHTML = sensorData[0].lastData.tempinf;
-        let drybulb = sensorData[0].lastData.tempf;
+        let drybulb = fahrenheitToCelsius(sensorData[0].lastData.tempf);
         let relhumidity = sensorData[0].lastData.humidity;
         document.getElementById("bestswamptemp").innerHTML = getWetBulb(drybulb, relhumidity) + 5;
     })
@@ -99,12 +99,21 @@ function formattedTime(unixtime) {
     return dateObject.toLocaleString();
 }
 
+function fahrenheitToCelsius(fahrenheit) {
+    return (fahrenheit - 32) * 5/9;
+}
+
+function celsiusToFahrenheit(celsius) {
+    return ((9/5) * celsius) + 32;
+}
+
 function getWetBulb(drybulb, relhumidity) {
-    return drybulb * Math.atan(0.151977 * Math.sqrt(relhumidity + 8.313659))
+    let celsiuswetbulb = drybulb * Math.atan(0.151977 * Math.sqrt(relhumidity + 8.313659))
         + 0.00391838 * Math.sqrt(relhumidity ** 3) * Math.atan(0.023101 * relhumidity)
         - Math.atan(relhumidity - 1.676331)
         + Math.atan(drybulb + relhumidity)
         - 4.686035;
+    return celsiusToFahrenheit(celsiuswetbulb);
 }
 
 function calcAQI(pm25) {
