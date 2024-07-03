@@ -4,7 +4,7 @@
           <style>
               .grid-container {
                   display: grid;
-                  grid-template-columns: 1fr;
+                  grid-template-columns: 1fr 1fr;
                   grid-template-rows: 1fr 1fr;
                   background-color: #2196F3;
                   justify-content: center;
@@ -33,15 +33,19 @@
       <body>
           <div class = "grid-container">
                 <div class = "grid-item">
-                    <p style = "font-size:3vw">Current Indoor Temp</p>
+                    <p style = "font-size:3vw">Indoor Temp</p>
                     <p id = "indoortemp"></p>
                 </div>
                 <div class = "grid-item">
-                    <p style = "font-size:3vw">Current Wet Bulb Temperature</p>
+                    <p style = "font-size:3vw">Outdoor Temp</p>
+                    <p id = "outdoortemp"></p>
+                </div>
+                <div class = "grid-item">
+                    <p style = "font-size:3vw">Wet Bulb Temperature</p>
                     <p id = "wetbulbtemp"></p>
                 </div>
                 <div class = "grid-item">
-                    <p style = "font-size:3vw">Current Cooler Efficiency</p>
+                    <p style = "font-size:3vw">Cooler Efficiency</p>
                     <p id = "coolerefficiency"></p>
                 </div>
               </div>
